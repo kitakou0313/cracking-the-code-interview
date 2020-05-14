@@ -1,7 +1,5 @@
 import unittest
 
-# 固定版で実装
-
 
 class QueueViaStacks():
     def __init__(self):
@@ -10,19 +8,15 @@ class QueueViaStacks():
 
     def add(self, val):
         self.stackNewest.append(val)
-        self.stackOldest = []
 
-        for i in self.stackNewest.__reversed__():
-            self.stackOldest.append(i)
+    def shiftStacks(self):
+        if len(self.stackOldest) == 0:
+            while not(len(self.stackNewest) == 0):
+                self.stackOldest.append(self.stackNewest.pop())
 
     def remove(self):
-        ans = self.stackOldest.pop() if len(self.stackOldest) != 0 else None
-        self.stackNewest = []
-
-        for i in self.stackOldest.__reversed__():
-            self.stackNewest.append(i)
-
-        return ans
+        self.shiftStacks()
+        return self.stackOldest.pop() if len(self.stackOldest) != 0 else None
 
 
 class Test(unittest.TestCase):
