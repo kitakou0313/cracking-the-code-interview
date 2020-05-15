@@ -23,7 +23,7 @@ class Node():
     def __init__(self, data, adjacency_list=None):
         self.data = data
         self.connectedList = adjacency_list or []
-        self.shortest_path = None
+        self.shortestPath = None
 
     def add_edge_to(self, node):
         self.connectedList += [node]
@@ -37,9 +37,9 @@ def findRoute(nodeStart, nodeEnd):
     isVisited = set([])
 
     q.add(nodeStart)
+    nodeStart.shortestPath = str(nodeStart.data)
     isVisited.add(nodeStart.data)
 
-    ansPath = ""
     isFound = False
     while not(q.isEmpty()):
         node = q.remove()
@@ -47,14 +47,14 @@ def findRoute(nodeStart, nodeEnd):
         for nxtNode in node.connectedList:
             if not (nxtNode.data in isVisited):
                 q.add(nxtNode)
+                nxtNode.shortestPath = str(
+                    node.shortestPath) + str(nxtNode.data)
                 isVisited.add(nxtNode.data)
 
-        ansPath += str(node.data)
         if node == nodeEnd:
-            isFound = True
-            break
+            return node.shortestPath
 
-    return str(isFound)
+    return "None"
 
 
 def str_for(path):
@@ -76,10 +76,10 @@ class Test(unittest.TestCase):
         node_a = Node('A', [node_b, node_c, node_d])
         node_e = Node('E', [node_f, node_a])
         node_d.add_edge_to(node_a)
-        self.assertEqual(str_for(findRoute(node_a, node_i)), "False")
-        self.assertEqual(str_for(findRoute(node_a, node_j)), "True")
+        self.assertEqual(str_for(findRoute(node_a, node_i)), 'None')
+        self.assertEqual(str_for(findRoute(node_a, node_j)), 'ABJ')
         node_h.add_edge_to(node_i)
-        self.assertEqual(str_for(findRoute(node_a, node_i)), "True")
+        self.assertEqual(str_for(findRoute(node_a, node_i)), 'ACGHI')
 
 
 if __name__ == "__main__":
