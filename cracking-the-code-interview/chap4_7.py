@@ -59,7 +59,8 @@ class Test(unittest.TestCase):
                          ("E", "A"), ("E", "B"), ("G", "D")]
         self.assertEqual(buildOrder(projects, dependencies1),
                          ["D", "F", "G", "B", "C", "A", "E"])
-        dependencies2 = [("A", "B"), ("B", "C"), ("C", "D"), ("D", "A")]
+        dependencies2 = [("A", "B"), ("B", "C"), ("C", "D"),
+                         ("D", "A"), ("A", "G")]
         self.assertEqual(buildOrder(
             projects, dependencies2).__class__, Exception)
         dependencies3 = [("A", "B"), ("A", "C"), ("E", "A"), ("E", "B"), ("A", "F"),
