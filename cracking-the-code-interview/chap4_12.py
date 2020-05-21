@@ -3,59 +3,46 @@ import random
 
 
 class Node():
-    def __init__(self, data, left=None, right=None):
-        self.data, self.left, self.right = data, left, right
-        self.size = 1  # 自分を根とする木のノード数
-        self.size += left.size if not left is None else 0
-        self.size += right.size if not right is None else 0
-
-    def get_random_node(self):
-        index = random.randint(1, self.size)
-        if index == self.size:
-            return self
-        elif index <= self.left.size:
-            return self.left.get_random_node()
-        else:
-            return self.right.get_random_node()
-
-    def insert(self, data):
-        current = self
-        while True:
-            current.size += 1
-            if current.left is None and current.right is None:
-                index = random.randint(1, 2)
-                if index == 1:
-                    current.left = Node(data)
-                else:
-                    current.right = Node(data)
-                break
-            elif current.left is None:
-                current.left = Node(data)
-                break
-            elif current.right is None:
-                current.right = Node(data)
-                break
-
-            index = random.randint(1, 2)
-            if index == 1:
-                current = current.left
-            else:
-                current = current.right
+    def __init__(self, name, val, left=None, right=None):
+        self.name, self.val, self.left, self.right = name, val, left, right
 
 
-tree = Node(11)
-tree.insert(21)
-tree.insert(44)
-tree.insert(31)
+def getParticalPathNum(node, runningSum, targetSum, wayDic):
+    if node is None:
+        return 0
 
-resList = []
+    runningSum += node.val
+    nowSum = runningSum - targetSum
+    totalPaths = wayDic[nowSum] if (nowSum in wayDic) else 0
 
-for i in range(100000):
-    resList.append(tree.get_random_node().data)
+    if runningSum == targetSum:
+        totalPaths += 1
 
-ansDic = {11: 0, 21: 0, 31: 0, 44: 0}
+    wayDic[runningSum] = 0
+    wayDic[runningSum] += 1
 
-for res in resList:
-    ansDic[res] += 1
+    totalPaths += getParticalPathNum(node.left, runningSum, targetSum, wayDic)
+    totalPaths += getParticalPathNum(node.right, runningSum, targetSum, wayDic)
 
-print(ansDic)
+    wayDic[runningSum] -= 1
+
+    return totalPaths
+
+
+def findPathNumWithSum(node, sum):
+    dic = {}
+    return getParticalPathNum(node, 0, sum, dic)
+
+
+class Test(unittest.TestCase):
+    def test_paths_with_sum(self):
+        bt = Node("A", 4, Node("B", -2, Node("D", 7), Node("E", 4)),
+                  Node("C", 7, Node("F", -1, Node("H", -1), Node("I", 2, Node("K", 1))),
+                       Node("G", 0, None,        Node("J", -2))))
+        self.assertEqual(findPathNumWithSum(bt, 12), 1)
+        self.assertEqual(findPathNumWithSum(bt, 2), 4)
+        self.assertEqual(findPathNumWithSum(bt, 9), 4)
+
+
+if __name__ == "__main__":
+    unittest.main()
