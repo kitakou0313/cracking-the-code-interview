@@ -1,18 +1,19 @@
-import unittest
+import random
 
 
-def getDaysOfAllBlueEyesLeave(numOfBlueEyes):
-    if numOfBlueEyes != 0:
-        return numOfBlueEyes
-    else:
-        return 0
+def calBirthRate(numOfPeople):
+    people = ["M" if random.randrange(
+        2) == 0 else "W" for n in range(numOfPeople)]
+    man = 0
+    women = 0
+    for person in people:
+        if person == "M":
+            man += 1
+        else:
+            women += 1
+
+    return women / man
 
 
-class Test(unittest.TestCase):
-    def test_getDaysOfAllBlueEyesLeave(self):
-        self.assertEqual(getDaysOfAllBlueEyesLeave(5), 5)
-        self.assertEqual(getDaysOfAllBlueEyesLeave(6), 6)
-
-
-if __name__ == "__main__":
-    unittest.main()
+for x in [100, 10000, 100000]:
+    print(calBirthRate(x))
