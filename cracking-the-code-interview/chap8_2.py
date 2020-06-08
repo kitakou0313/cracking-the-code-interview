@@ -45,7 +45,8 @@ def path_through_grid(grid):
                                                             ][now[1]] + ["right" if nxtVec == (0, 1) else "down"]
 
         if now == (R-1, C-1):
-            return gridPaths[R - 1][C - 1].append("end")
+            gridPaths[R - 1][C - 1].append("end")
+            return gridPaths[R - 1][C - 1]
 
     return None
 
@@ -56,6 +57,8 @@ class Test(unittest.TestCase):
                 [0, 1, 1, 0, 1, 1, 0],
                 [0, 0, 1, 0, 0, 0, 0],
                 [1, 1, 0, 0, 0, 1, 0]]
+
+        print(path_through_grid(grid))
         self.assertEqual(path_through_grid(grid), ["start", "right", "right",
                                                    "right", "down", "down", "right", "right", "right", "down", "end"])
         grid = [[0, 0, 0, 0, 0, 0, 1],
