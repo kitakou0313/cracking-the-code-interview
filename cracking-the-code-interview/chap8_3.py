@@ -19,10 +19,31 @@ def magic_index_distinct(l):
     return findMagicIndWithBinS(l, 0, len(l) - 1)
 
 
+def findMagicIndWithBinSFromUndistinct(l, start, end):
+    mid = (start + end) // 2
+    if start > mid:
+        return None
+    midValue = l[mid]
+
+    if mid == midValue:
+        return mid
+
+    leftRes = findMagicIndWithBinSFromUndistinct(
+        l, max(mid + 1, midValue), end)
+    if leftRes is not None:
+        return leftRes
+
+    rightRes = findMagicIndWithBinSFromUndistinct(
+        l, start, min(mid - 1, midValue))
+
+    if rightRes is not None:
+        return rightRes
+
+    return None
+
+
 def magic_index(l):
-    for ind in range(len(l)):
-        if ind == l[ind]:
-            return ind
+    return findMagicIndWithBinSFromUndistinct(l, 0, len(l) - 1)
 
 
 class Test(unittest.TestCase):
@@ -40,8 +61,7 @@ class Test(unittest.TestCase):
         self.assertEqual(magic_index([-2, -1, 0, 2]), None)
         self.assertEqual(magic_index([-20, 0, 1, 2, 3, 4, 5, 6, 20]), None)
         self.assertEqual(magic_index([-20, 0, 1, 2, 3, 4, 5, 7, 20]), 7)
-        self.assertEqual(magic_index([-20, 1, 2, 3, 4, 5, 6, 20]), 1)
-        self.assertEqual(magic_index([-20, 5, 5, 5, 5, 5, 6, 20]), 5)
+        self.assertEqual(magic_index([-20, 5, 5, 5, 5, 5, 7, 20]), 5)
 
 
 if __name__ == "__main__":
