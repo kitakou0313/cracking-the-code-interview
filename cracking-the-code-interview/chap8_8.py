@@ -2,7 +2,6 @@ import unittest
 
 
 def calPermutations(string, memoDic):
-
     if string in memoDic:
         return memoDic[string]
     if len(string) == 1:
@@ -30,6 +29,10 @@ class Test(unittest.TestCase):
         res.sort()
         self.assertEqual(res, ["aabc", "aacb", "abac", "abca",
                                "acab", "acba", "baac", "baca", "bcaa", "caab", "caba", "cbaa"])
+
+        res = calPermutations("a" * 13, {})
+        res.sort()
+        self.assertEqual(res, ["a"*13])
 
 
 if __name__ == "__main__":
