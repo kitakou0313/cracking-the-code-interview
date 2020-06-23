@@ -27,7 +27,7 @@ def searchIndWithBinSearchFromListy(listy, targetNum,  left, right):
         while listy[mid + 1 + lengthOfListy] != -1:
             lengthOfListy *= 2
 
-        return searchIndWithBinSearchFromListy(listy, targetNum, mid + 1, lengthOfListy)
+        return searchIndWithBinSearchFromListy(listy, targetNum, mid + 1, min(mid + 1 + lengthOfListy, right))
 
 
 def searchIndOfTargetNumFromListy(listy, targetNum):
