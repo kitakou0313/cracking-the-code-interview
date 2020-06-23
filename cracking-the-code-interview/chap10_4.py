@@ -33,7 +33,7 @@ def searchIndWithBinSearchFromListy(listy, targetNum,  left, right):
 def searchIndOfTargetNumFromListy(listy, targetNum):
 
     lengthOfListy = 1
-    while listy[lengthOfListy] != -1:
+    while listy[lengthOfListy - 1] != -1:
         lengthOfListy *= 2
 
     mid = (lengthOfListy-1) // 2
@@ -44,6 +44,8 @@ def searchIndOfTargetNumFromListy(listy, targetNum):
     if targetNum < listy[mid]:
         return searchIndWithBinSearchFromListy(listy, targetNum, 0, mid - 1)
     else:
+        if listy[mid + 1] == -1:
+            return None
         lengthOfListy = 1
         while listy[mid + 1 + lengthOfListy] != -1:
             lengthOfListy *= 2
@@ -61,6 +63,10 @@ class Test(unittest.TestCase):
         self.assertEqual(searchIndOfTargetNumFromListy(listy, 77), 8)
         self.assertEqual(searchIndOfTargetNumFromListy(listy, 99), 10)
         self.assertEqual(searchIndOfTargetNumFromListy(listy, 100), None)
+
+        listy2 = Listy([10, 20, 30, 40, 50, 60, 70, 80])
+        self.assertEqual(searchIndOfTargetNumFromListy(listy2, 90), None)
+        self.assertEqual(searchIndOfTargetNumFromListy(listy2, 40), 3)
 
 
 if __name__ == "__main__":
