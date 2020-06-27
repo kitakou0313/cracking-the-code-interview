@@ -1,41 +1,19 @@
 import unittest
 
 
-def searchRowInSortedMatrix(matrix, trgNum, left, right):
-    mid = (left + right) // 2
-
-    if matrix[mid][0] == trgNum or left == right:
-        return mid
-
-    if trgNum < matrix[mid][0]:
-        return searchRowInSortedMatrix(matrix, trgNum, left, mid - 1)
-
-    else:
-        return searchRowInSortedMatrix(matrix, trgNum, mid + 1, right)
-
-
-def searchColumnInSortedMatrix(matrix, rowNum, trgNum, left, right):
-    mid = (left + right) // 2
-
-    if matrix[rowNum][mid] == trgNum:
-        return (rowNum, mid)
-
-    if right < left:
-        return None
-
-    if trgNum < matrix[rowNum][mid]:
-        return searchColumnInSortedMatrix(matrix, rowNum, trgNum, left, mid - 1)
-
-    else:
-        return searchColumnInSortedMatrix(matrix, rowNum, trgNum, mid + 1, right)
-
-
 def searchPosOfNumInSortedMatrix(matrix, trgNum):
-    # 行に二分探索、列に二分探索する O(logN + logM)
-    # 行の先頭要素で二文探索、サイズが1になるまで
-    trgRow = searchRowInSortedMatrix(matrix, trgNum, 0, len(matrix))
+    row = 0
+    col = len(matrix[0])-1
+    # 各行。列ごとの最大、最小値を見て狭めていく
 
-    return searchColumnInSortedMatrix(matrix, trgRow, trgNum, 0, len(matrix[0]))
+    while row < len(matrix) and col >= 0:
+        if matrix[row][col] == trgNum:
+            return (row, col)
+
+        if matrix[row][col] < trgNum:
+            row += 1
+        else:
+            col -= 1
 
 
 class Test(unittest.TestCase):
