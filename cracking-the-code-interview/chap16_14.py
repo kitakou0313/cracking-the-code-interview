@@ -1,5 +1,7 @@
 import unittest
 
+# どの直線に属する点が一番多いか考えればいいだけなんだから傾きと切片でハッシュマップ作れば良かった…
+
 
 class Point():
     def __init__(self, x, y):
