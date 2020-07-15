@@ -2,17 +2,22 @@ import unittest
 
 
 def findArrayIndsNeededToBeSorted(array):
-    startInd, endInd = 0, 0
+    def findMiddleArray(array):
+        startInd, endInd = 0, 0
 
-    for i in range(len(array) - 1):
-        if array[i] > array[i + 1]:
-            startInd = i
-            break
+        for i in range(len(array) - 1):
+            if array[i] > array[i + 1]:
+                startInd = i
+                break
 
-    for i in range(len(array)-1, 0, -1):
-        if array[i - 1] > array[i]:
-            endInd = i
-            break
+        for i in range(len(array)-1, 0, -1):
+            if array[i - 1] > array[i]:
+                endInd = i
+                break
+        return startInd, endInd
+
+    startInd, endInd = findMiddleArray(array)
+
     if startInd == 0 and endInd == 0:
         return(0, 0)
 
