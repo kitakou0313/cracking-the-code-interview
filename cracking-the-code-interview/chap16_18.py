@@ -1,19 +1,22 @@
 import unittest
 
 
+def findMatchingPatterns(string, a):
+
+
 class Test(unittest.TestCase):
-    def test_matches_pattern(self):
-        self.assertTrue(matches_pattern("dogdogturtledog", "aaba"))
-        self.assertTrue(matches_pattern("dogdogturtledog", "bbab"))
-        self.assertTrue(matches_pattern("dogdogturtledogdog", "aabaa"))
-        self.assertTrue(matches_pattern("dogdogturtledogdog", "aba"))
-        self.assertTrue(matches_pattern("dogdogturtledogdo", "aba"))
-        self.assertFalse(matches_pattern("dogdogturtledogdg", "aba"))
-        self.assertTrue(matches_pattern("catcatbirdbird", "aabb"))
-        self.assertFalse(matches_pattern("catcatcatbirdbird", "aabb"))
-        self.assertTrue(matches_pattern(
+    def test_findMatchingPatterns(self):
+        self.assertTrue(findMatchingPatterns("dogdogturtledog", "aaba"))
+        self.assertTrue(findMatchingPatterns("dogdogturtledog", "bbab"))
+        self.assertTrue(findMatchingPatterns("dogdogturtledogdog", "aabaa"))
+        self.assertTrue(findMatchingPatterns("dogdogturtledogdog", "aba"))
+        self.assertTrue(findMatchingPatterns("dogdogturtledogdo", "aba"))
+        self.assertFalse(findMatchingPatterns("dogdogturtledogdg", "aba"))
+        self.assertTrue(findMatchingPatterns("catcatbirdbird", "aabb"))
+        self.assertFalse(findMatchingPatterns("catcatcatbirdbird", "aabb"))
+        self.assertTrue(findMatchingPatterns(
             "buffalobuffalobuffalobuffalo", "aaaa"))
-        self.assertFalse(matches_pattern(
+        self.assertFalse(findMatchingPatterns(
             "buffalobuffalouffalobuffalo", "aaaa"))
 
 
