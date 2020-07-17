@@ -27,30 +27,31 @@ def findMatchingPatterns(string, pattern):
                    aLength)//bCount if bCount != 0 else 0
         aPattern = string[:aLength]
         bPattern = ""
+
         nowInd = 0
-        nowPattern = copy.deepcopy(pattern)
-        while nowInd < len(string):
-            p = nowPattern.pop(0)
-            if p == "a":
-                if aPattern == string[nowInd:nowInd + aLength]:
+
+        for p in range(len(pattern)):
+            if pattern[p] == "a":
+                if string[nowInd:nowInd + aLength] == aPattern:
                     nowInd += aLength
-                    if len(nowPattern) == 0:
-                        return True
                 else:
                     break
-            else:
+
+            elif pattern[p] == "b":
                 if bLength != 0 and bPattern == "":
                     bPattern = string[nowInd:nowInd + bLength]
                     nowInd += bLength
-                    if len(nowPattern) == 0:
-                        return True
+                    continue
+                if string[nowInd:nowInd + bLength] == bPattern:
+                    nowInd += bLength
                 else:
-                    if bPattern == string[nowInd:nowInd + bLength]:
-                        nowInd += bLength
-                        if len(nowPattern) == 0:
-                            return True
-                    else:
-                        break
+                    break
+
+            if p == len(pattern) - 1:
+                return True
+
+            if nowInd >= len(string):
+                break
 
     return False
 
