@@ -43,14 +43,17 @@ class DoubleLinkedListForLRU():
             return self.deleteTailNode()
 
     def moveNodeToHead(self, node):
-        node.prev.next = node.next
-        if node.next is not None:
-            node.next.prev = node.prev
+        if node == self.head:
+            return
+        else:
+            node.prev.next = node.next
+            if node.next is not None:
+                node.next.prev = node.prev
 
-        node.next = self.head
-        node.prev = None
+            node.next = self.head
+            node.prev = None
 
-        self.head = node
+            self.head = node
 
 
 class Record():
@@ -117,6 +120,7 @@ class Test(unittest.TestCase):
                          sorted([('color', 3), ('sport', 2),
                                  ('spice', 0), ('dance', 1)]))
         self.assertEqual(cache.lookup('drink'), None)
+        self.assertEqual(cache.lookup('color'), 'green')
         self.assertEqual(cache.lookup('color'), 'green')
         self.assertEqual(sorted(cache.ages()),
                          sorted([('sport', 3), ('dance', 2),
