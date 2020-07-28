@@ -27,7 +27,7 @@ def calMaxHeightWithBox(box, boxes, memo):
 def calHeightMostHighestBosStack(boxes):
     maxHeight = -1
     memo = {}
-    boxes.sort(key=lambda b: b.height, reverse=True)
+
     for box in boxes:
         maxHeight = max(maxHeight, calMaxHeightWithBox(box, boxes, memo))
 
