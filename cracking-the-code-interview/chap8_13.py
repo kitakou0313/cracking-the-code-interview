@@ -9,22 +9,22 @@ class Box(object):
         return self.height > box.height and self.width > box.width and self.depth > box.depth
 
 
-def calMaxHeightWithBox(box, boxes, memo):
-    if box in memo:
-        return memo[box]
+def calMaxHeightWithBox(bottomBox, boxes, memo):
+    if bottomBox in memo:
+        return memo[bottomBox]
 
-    res = box.height
+    res = bottomBox.height
 
     for probNxtbox in boxes:
-        if box.isEnablePuttedOnThisBox(probNxtbox):
-            res = max(res, box.height +
+        if bottomBox.isEnablePuttedOnThisBox(probNxtbox):
+            res = max(res, bottomBox.height +
                       calMaxHeightWithBox(probNxtbox, boxes, memo))
 
-    memo[box] = res
+    memo[bottomBox] = res
     return res
 
 
-def calHeightMostHighestBosStack(boxes):
+def calMostHighestBoxStack(boxes):
     maxHeight = -1
     memo = {}
 
@@ -37,12 +37,12 @@ def calHeightMostHighestBosStack(boxes):
 class Test(unittest.TestCase):
     def test_stack_boxes(self):
         boxes = [Box(100, 100, 100)]
-        self.assertEqual(calHeightMostHighestBosStack(boxes), 100)
+        self.assertEqual(calMostHighestBoxStack(boxes), 100)
         boxes.append(Box(25, 25, 25))
-        self.assertEqual(calHeightMostHighestBosStack(boxes), 125)
+        self.assertEqual(calMostHighestBoxStack(boxes), 125)
         boxes.append(Box(20, 5, 30))
         boxes.append(Box(17, 4, 28))
-        self.assertEqual(calHeightMostHighestBosStack(boxes), 137)
+        self.assertEqual(calMostHighestBoxStack(boxes), 137)
 
 
 if __name__ == "__main__":
